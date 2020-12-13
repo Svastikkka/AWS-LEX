@@ -1,0 +1,202 @@
+{
+  "metadata": {
+    "schemaVersion": "1.0",
+    "importType": "LEX",
+    "importFormat": "JSON"
+  },
+  "resource": {
+    "name": "MyWaysBot",
+    "version": "1",
+    "intents": [
+      {
+        "name": "MyWaysJobSearch",
+        "version": "13",
+        "fulfillmentActivity": {
+          "type": "ReturnIntent"
+        },
+        "sampleUtterances": [
+          "Hello! I want to search   {JobType}  opportunities",
+          "search  {JobType}",
+          "Would you please search {JobType} opportunities",
+          "Would you please search {JobCategory}",
+          "Search {JobCategory}"
+        ],
+        "slots": [
+          {
+            "sampleUtterances": [],
+            "slotType": "JobCategory",
+            "slotTypeVersion": "1",
+            "obfuscationSetting": "NONE",
+            "slotConstraint": "Required",
+            "valueElicitationPrompt": {
+              "messages": [
+                {
+                  "contentType": "PlainText",
+                  "content": "Select Jobs Categories"
+                }
+              ],
+              "responseCard": "{\"version\":1,\"contentType\":\"application/vnd.amazonaws.card.generic\",\"genericAttachments\":[{\"title\":\"Job category\",\"buttons\":[{\"text\":\"DevOps\",\"value\":\"DevOps\"},{\"text\":\"Web Developer\",\"value\":\"web developer\"},{\"text\":\"Software Engineer\",\"value\":\"software engineer\"}]}]}",
+              "maxAttempts": 2
+            },
+            "priority": 1,
+            "name": "JobCategory"
+          },
+          {
+            "sampleUtterances": [
+              "I would like to do   {JobType}",
+              "Select {JobType}"
+            ],
+            "slotType": "JobType",
+            "slotTypeVersion": "1",
+            "obfuscationSetting": "DEFAULT_OBFUSCATION",
+            "slotConstraint": "Required",
+            "valueElicitationPrompt": {
+              "messages": [
+                {
+                  "contentType": "PlainText",
+                  "content": "what kind of job you would like to do?"
+                },
+                {
+                  "contentType": "PlainText",
+                  "content": "What type of job you like to search?"
+                }
+              ],
+              "responseCard": "{\"version\":1,\"contentType\":\"application/vnd.amazonaws.card.generic\",\"genericAttachments\":[{\"title\":\"Select \",\"buttons\":[{\"text\":\"Full Time\",\"value\":\"full-time\"},{\"text\":\"Part Time\",\"value\":\"part-time\"},{\"text\":\"Internships/intern\",\"value\":\"Intern\"}]}]}",
+              "maxAttempts": 2
+            },
+            "priority": 2,
+            "name": "JobType"
+          }
+        ],
+        "followUpPrompt": {
+          "prompt": {
+            "messages": [
+              {
+                "groupNumber": 1,
+                "contentType": "PlainText",
+                "content": "Would you please share your resume ."
+              }
+            ],
+            "responseCard": "{\"version\":1,\"contentType\":\"application/vnd.amazonaws.card.generic\",\"genericAttachments\":[{\"title\":\"Resume\",\"buttons\":[{\"text\":\"Resume\",\"value\":\"Resume\"}]}]}",
+            "maxAttempts": 3
+          },
+          "rejectionStatement": {
+            "messages": [
+              {
+                "groupNumber": 1,
+                "contentType": "PlainText",
+                "content": "Ok! Have a nice day"
+              },
+              {
+                "groupNumber": 1,
+                "contentType": "PlainText",
+                "content": "Ok!"
+              }
+            ]
+          }
+        }
+      }
+    ],
+    "slotTypes": [
+      {
+        "description": "Search for jobs ",
+        "name": "JobType",
+        "version": "1",
+        "enumerationValues": [
+          {
+            "value": "full-time",
+            "synonyms": [
+              "full-time"
+            ]
+          },
+          {
+            "value": "Intern",
+            "synonyms": [
+              "Intern"
+            ]
+          },
+          {
+            "value": "Jobs",
+            "synonyms": [
+              "Jobs"
+            ]
+          },
+          {
+            "value": "Internships",
+            "synonyms": [
+              "Internships"
+            ]
+          },
+          {
+            "value": "part-time",
+            "synonyms": [
+              "part-time"
+            ]
+          },
+          {
+            "value": "full time",
+            "synonyms": [
+              "full time"
+            ]
+          },
+          {
+            "value": "part time",
+            "synonyms": [
+              "part time"
+            ]
+          }
+        ],
+        "valueSelectionStrategy": "TOP_RESOLUTION"
+      },
+      {
+        "description": "Available Job Categories",
+        "name": "JobCategory",
+        "version": "1",
+        "enumerationValues": [
+          {
+            "value": "DevOps",
+            "synonyms": [
+              "DevOps"
+            ]
+          },
+          {
+            "value": "web developer",
+            "synonyms": [
+              "web developer"
+            ]
+          },
+          {
+            "value": "software engineer",
+            "synonyms": [
+              "software engineer"
+            ]
+          }
+        ],
+        "valueSelectionStrategy": "TOP_RESOLUTION"
+      }
+    ],
+    "voiceId": "Amy",
+    "childDirected": false,
+    "locale": "en-GB",
+    "idleSessionTTLInSeconds": 600,
+    "clarificationPrompt": {
+      "messages": [
+        {
+          "contentType": "PlainText",
+          "content": "Sorry, what can I help you with?"
+        }
+      ],
+      "maxAttempts": 2
+    },
+    "abortStatement": {
+      "messages": [
+        {
+          "contentType": "PlainText",
+          "content": "Sorry, I am not able to assist at this time"
+        }
+      ]
+    },
+    "detectSentiment": false,
+    "enableModelImprovements": true
+  }
+}
